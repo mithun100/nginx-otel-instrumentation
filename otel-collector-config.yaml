@@ -3,35 +3,42 @@ processors:
     attributes:
     - key: appdynamics.controller.account
       action: upsert
-      value: "acme"
+      value: "xxxx"
     - key: appdynamics.controller.host
       action: upsert
-      value: "acme.saas.appdynamics.com"
+      value: "xxxx.saas.appdynamics.com"
     - key: appdynamics.controller.port
       action: upsert
       value: 443
-	- key: service.namespace
+    - key: service.namespace
       action: upsert		
-	  value: shop
-	batch:
-		timeout: 30s
-		send_batch_size: 90
+      value: "xxxx"
+    - key: service.name
+      value: "xxxx"
+      action: upsert 
+  batch:
+    timeout: 30s
+    send_batch_size: 90
 receivers:
   otlp:
     protocols:
       grpc:
-        endpoint:
+        endpoint: 0.0.0.0:4317
       http:
-        endpoint:
+        endpoint: 0.0.0.0:4318
+        cors:
+           allowed_origins:
+           - '*'
 exporters:
-  otlphttp:
-    endpoint: "https://<your region>-sls-agent-api.saas.appdynamics.com" // Refer to Otel tab in your controller
-    headers: {"x-api-key": "****************"}
-  
-  jaeger:
-    endpoint: jaeger:14250
-    tls:
-      insecure: true
+ logging:
+   loglevel: DEBUG
+ otlphttp:
+   endpoint: "https://xxxx.saas.appdynamics.com"
+   headers: {"x-api-key": "xxxx"}
+ jaeger:
+     endpoint: jaeger:14250
+     tls: 
+       insecure: true
 service:
   pipelines:
     traces:
