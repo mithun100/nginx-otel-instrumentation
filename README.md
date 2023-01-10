@@ -25,3 +25,7 @@ docker ps
 ```
 
 It will show the collector up and running, if everything is running as expected.
+
+Reference:- https://opentelemetry.io/blog/2022/instrument-nginx/ and there are some extra parameters from the AppDynamics.
+
+If you want to just have the OTel without AppDynamics details then checkout the main branch.
