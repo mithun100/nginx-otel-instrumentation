@@ -24,6 +24,13 @@ docker-compose down
 docker ps
 ```
 
+
+create some traffic:
+
+```
+curl localhost:8080
+```
+
 It will show the collector up and running, if everything is running as expected.
 
 Reference:- https://opentelemetry.io/blog/2022/instrument-nginx/ and there are some extra parameters from the AppDynamics.
