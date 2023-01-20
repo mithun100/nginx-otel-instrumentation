@@ -31,7 +31,7 @@ receivers:
            - '*'
 exporters:
  logging:
-   loglevel: DEBUG
+   verbosity: detailed
  otlphttp:
    endpoint: "https://xxxx.saas.appdynamics.com"
    headers: {"x-api-key": "xxxx"}
@@ -44,4 +44,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [resource, batch]
-      exporters: [otlphttp,jaeger]
+      exporters: [otlphttp,jaeger,logging]
+  telemetry:
+    logs:
+      level: "debug"
