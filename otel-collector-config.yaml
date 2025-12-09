@@ -1,21 +1,21 @@
 processors:
   resource:
     attributes:
-    - key: appdynamics.controller.account
-      action: upsert
-      value: "xxxx"
-    - key: appdynamics.controller.host
-      action: upsert
-      value: "xxxx.saas.appdynamics.com"
-    - key: appdynamics.controller.port
-      action: upsert
-      value: 443
-    - key: service.namespace
-      action: upsert		
-      value: "xxxx"
-    - key: service.name
-      value: "xxxx"
-      action: upsert 
+      - key: appdynamics.controller.account
+        action: upsert
+        value: "xxxx"
+      - key: appdynamics.controller.host
+        action: upsert
+        value: "xxxx"
+      - key: appdynamics.controller.port
+        action: upsert
+        value: 443
+      - key: service.namespace
+        action: upsert
+        value: "xxxx"
+      - key: service.name
+        value: "xxxx"
+        action: upsert
   batch:
     timeout: 30s
     send_batch_size: 90
@@ -27,24 +27,24 @@ receivers:
       http:
         endpoint: 0.0.0.0:4318
         cors:
-           allowed_origins:
-           - '*'
+          allowed_origins:
+            - "*"
 exporters:
- logging:
-   verbosity: detailed
- otlphttp:
-   endpoint: "https://xxxx.saas.appdynamics.com"
-   headers: {"x-api-key": "xxxx"}
- jaeger:
-     endpoint: jaeger:14250
-     tls: 
-       insecure: true
+  debug:
+    verbosity: detailed
+  otlphttp:
+    endpoint: "https://xxxx.saas.appdynamics.com"
+    headers: { "x-api-key": "xxxx" }
+  otlp:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [resource, batch]
-      exporters: [otlphttp,jaeger,logging]
+      exporters: [otlphttp, otlp, debug]
   telemetry:
     logs:
       level: "debug"
